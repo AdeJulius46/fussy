@@ -1,8 +1,9 @@
 "use client"
 
 import { Canvas } from "@react-three/fiber"
-import { SodaCan } from "./SodaCan"
-import { Environment, Float } from "@react-three/drei"
+// import { SodaCan } from "./SodaCan"
+import { Environment, Float, View } from "@react-three/drei"
+import FloatingCan from "./FloatingCan"
 
 type Props = {}
 
@@ -16,7 +17,7 @@ export default function ViewCanvas({}: Props) {
         left:"50%",
         transform:"translateX(-50%)",
         overflow:"hidden",
-        PointerEvent:"none",
+        // pointerEvents:"none",
         zIndex:30,
       }
     }
@@ -32,16 +33,9 @@ export default function ViewCanvas({}: Props) {
         <boxGeometry />
         <meshStandardMaterial   color={"hotpink"} />
      </mesh> */}
-     <Float    
-  speed={2} // Animation speed, defaults to 1
-  rotationIntensity={1} // XYZ rotation intensity, defaults to 1
-  floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
-  floatingRange={[-1, 0.1]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
->
-
-     <SodaCan />
-     </Float>
-     <Environment  files="/hdr/lobby.hdr"  environmentIntensity={1.5}/>
+  <View.Port/>
+      {/* <FloatingCan />
+     <Environment  files="/hdr/lobby.hdr"  environmentIntensity={1.5}/> */}
      {/* <ambientLight intensity={2} />
      <spotLight intensity={3} position={[1,1,1]} /> */}
     </Canvas>

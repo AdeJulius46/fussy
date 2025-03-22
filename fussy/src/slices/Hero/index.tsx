@@ -1,3 +1,4 @@
+
 "use client"
 import { asText, Content } from "@prismicio/client";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
@@ -9,6 +10,8 @@ import { Bounded } from "@/component/Bounded";
 import Button from "@/component/Button";
 import { TextSplitter } from "@/component/TextSplitter";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { View } from "@react-three/drei";
+import Scene from "./Scene";
 
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -81,6 +84,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       y:20,
       opacity:0
     })
+
    
 
   })
@@ -91,6 +95,11 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
+
+        <View  className="hero-scene ffpointer-event-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
+        <Scene />
+        </View>
+
 
        <div className="grid">
         <div className="grid h-screen place-items-center">
@@ -113,7 +122,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
         </div>
          
         <div className="grid text-side relative   z-[80] h-screen items-center gap-4 md:grid-cols-2">
-      <PrismicNextImage className=" w-full md:hidden " field={slice.primary.cans_image}   alt={"Description of the image"}/>
+      <PrismicNextImage className=" w-full md:hidden " field={slice.primary.cans_image}  />
       
       <div>
       <h2 className="text-side-heading text-balance text-6xl font-black uppercase text-sky-950 lg:text-8xl">
