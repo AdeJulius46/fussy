@@ -12,6 +12,10 @@ import { TextSplitter } from "@/component/TextSplitter";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { View } from "@react-three/drei";
 import Scene from "./Scene";
+import { Bubbles } from "./Bubbles";
+import { useStore } from "@/hooks/useStore";
+import { useState } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -25,7 +29,11 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  */
 const Hero = ({ slice }: HeroProps): JSX.Element => {
 
+  const ready = useStore((state)=> state.ready)
+  const isDesktop = useMediaQuery("(min-width:768px)",true )
+
   useGSAP(()=>{
+    if(!ready && isDesktop) return;
     
     const introTl = gsap.timeline()
     introTl
@@ -87,7 +95,8 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
 
    
 
-  })
+  } ,{dependencies
+    :[ready,isDesktop]})
   return (
     <>
     <Bounded
@@ -96,9 +105,13 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       data-slice-variation={slice.variation}
     >
 
-        <View  className="hero-scene ffpointer-event-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
+{isDesktop &&(
+
+        <View  className="hero-scene pointer-event-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
         <Scene />
+        <Bubbles count={300} speed={2} repeat={true} />
         </View>
+)}
 
 
        <div className="grid">
